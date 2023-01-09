@@ -1,0 +1,23 @@
+{
+  "name": "backend-proyect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ProductManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gonzalo-Riva/backend-proyect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gonzalo-Riva/backend-proyect/issues"
+  },
+  "homepage": "https://github.com/Gonzalo-Riva/backend-proyect#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

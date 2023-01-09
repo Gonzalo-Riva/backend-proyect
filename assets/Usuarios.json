@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": 0,
+      "title": "Remera",
+      "description": "Mclovin",
+      "price": 59.99,
+      "thumbnail": "https://url.com/img.png",
+      "code": "na8182m3",
+      "stock": 100
+    },
+    {
+      "id": 1,
+      "title": "Buzos",
+      "description": "Nueva descripcion",
+      "price": 29.99,
+      "thumbnail": "https://url.com/img.png",
+      "code": "na8182m3",
+      "stock": 1
+    },
+    {
+      "id": 2,
+      "title": "Campera",
+      "description": "La campera que uso Mclovin en rusia",
+      "price": 159.99,
+      "thumbnail": "https://url.com/img.png",
+      "code": "na8182m3",
+      "stock": 2
+    },
+    {
+      "id": 3,
+      "title": "Pie de oro de Lionel Andres Messi Cuccittini, AKA 'The Flea'",
+      "description": "Replica de la mejor zurda",
+      "price": 5,
+      "thumbnail": "https://static.wikia.nocookie.net/muchalucha/images/1/12/MLTheFlea.png/revision/latest?cb=20221117023138",
+      "code": "na8182m3",
+      "stock": 5
+    }
+  ]
+}
