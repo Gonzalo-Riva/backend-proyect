@@ -8,19 +8,28 @@ class ProductManager {
         this.path = path
     }
 
-    addProduct = async (title, description, price, thumbnail, code, stock) => {
+    addProduct = async ({ title, description, price, stock, status, category, code, thumbnails }) => {
+        const valid = title && description && price && stock && code && category;
+
+        if (!valid) return "El formato no es el correcto, Faltan campos.";
+        if (status === undefined || status === null) status = true;
+
+
         let data // para no repetir toda la linea de writeFile, establezco en una variable auxiliar la información a guardar
 
         if (fs.existsSync(this.path)) {
-            const response = await this.getProducts() // 'array' con todos los productos
-            response.push({ id: 0, title, description, price, thumbnail, code, stock }) // añade el nuevo producto
-            data = response.map((item, index) => { return { ...item, id: index } })
+            const { products } = await this.getProducts() // 'array' con todos los productos
+            products.push({ id: 0, title: title, description: description, price: price, stock: stock, code: code, status: status, category: category, thumbnails: thumbnails }) // añade el nuevo producto
+            data = products.map((item, index) => { return { ...item, id: index } })
+
         } else {
-            data = [{ id: 0, title, description, price, thumbnail, code, stock }]
+            data = [{ id: 0, title: title, description: description, price: price, stock: stock, code: code, thumbnails: thumbnails }]
+
         }
 
 
-        await fs.promises.writeFile(this.path, JSON.stringify(data, null, 2))
+        await fs.promises.writeFile(this.path, JSON.stringify({ products: data }, null, 2))
+        return ("El producto fue agregado de forma exitosa");
     }
 
     getProducts = async () => {
@@ -30,27 +39,29 @@ class ProductManager {
 
     getProductById = async (id) => {
         const { products } = await this.getProducts();
-
         return products.find(p => p.id == id);
     }
 
     deleteProduct = async (id) => {
-        const response = await this.getProducts()
+        const { products } = await this.getProducts()
 
-        const objWithIdIndex = response.findIndex((obj) => obj.id === id);
+        const objWithIdIndex = products.findIndex((obj) => obj.id == id);
 
         if (objWithIdIndex > -1) {
-            response.splice(objWithIdIndex, 1);
+            products.splice(objWithIdIndex, 1);
         }
 
-        await fs.promises.writeFile(this.path, JSON.stringify(response, null, 2))
+        await fs.promises.writeFile(this.path, JSON.stringify({ products: products }, null, 2))
+
+        return objWithIdIndex > -1 ? "Borrado satisfactoriamente " : "No existe";
     }
 
     updateProduct = async (id, object) => {
-        let response = await this.getProducts();
-        const index = response.findIndex((item) => item.id === id);
-        response[index] = Object.assign(response[index], object);
-        await fs.promises.writeFile(this.path, JSON.stringify(response, null, 2))
+        let { products } = await this.getProducts();
+        const index = products.findIndex((item) => item.id === id);
+        products[index] = Object.assign(products[index], object);
+        await fs.promises.writeFile(this.path, JSON.stringify({ products: products }, null, 2))
+        return "Producto actualizado satisfactoriamente ";
     }
 
 
